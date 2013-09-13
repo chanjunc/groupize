@@ -53,11 +53,12 @@ function tableCtrl($scope, $http) {
         }
     }
 
-    // assumes that roles come directly from PLAY.PERSONAE.PERSONA even though there are other PERSONAs listed in PGROUPs
+    // Role defined as PERSONA in PLAY.PERSONAE or PERSONA in PLAY.PERSONAE.PGROUP
     $scope.getRoles = function(json) {
         var roles = [];
 
-        /* This gets the all personas listed in PGROUPS
+        roles = json.PLAY.PERSONAE.PERSONA;
+
         angular.forEach(json.PLAY.PERSONAE.PGROUP, function (pgroup) {
             angular.forEach(pgroup.PERSONA, function (persona) {
                 if (!roles[persona]) {
@@ -65,10 +66,7 @@ function tableCtrl($scope, $http) {
                 }
             });            
         });
-        */
 
-        // Only uses PERSONAE.PERSONA for our 'roles' 
-        roles = json.PLAY.PERSONAE.PERSONA;
         return roles;
     }
 
