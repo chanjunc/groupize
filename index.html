@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body ng-app ng-controller="tableCtrl">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div>
+            <input type="text" ng-model="xmlFile">
+            <button ng-click="loadStats()">Load Stats</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th ng-click="setSort('role')">Role</th>
+                    <th ng-click="setSort('values.lines')">number of lines spoken</th>
+                    <th ng-click="setSort('values.speech')">longest speech</th>
+                    <th ng-click="setSort('values.scenes.length')">number of scenes in which the role appears</th>
+                    <th ng-click="setSort('values.scenes.length')">percent of total scenes in which the role appears</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="role in roles | orderBy:sort | limitTo:10">
+                    <td>{{ role.role }}</td>
+                    <td>{{ role.values.lines }}</td>
+                    <td>{{ role.values.speech }} lines</td>
+                    <td>{{ role.values.scenes.length }}</td>
+                    <td>{{ 100 * (role.values.scenes.length / scenesCount) || 0 | number:0 }} %</td>
+                </tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">Total Roles: {{ roles.length }}</td>
+                    </tr>
+                </tfoot>
+            </tbody>
+        </table>
+        <!-- Add your site or application content here -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script>window.angular || document.write('<script src="/js/vendor/angular.min.js"><\/script>')</script>
+        <script src="/js/xml2json.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
+</html>
